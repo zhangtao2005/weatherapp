@@ -20,14 +20,60 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "app"
+    productFlavors{
+        stage {
+            buildConfigField 'String', 'BASE_URL', '"https://www.apiopen.top/"'
+            buildConfigField "boolean", "IS_DEBUG", "true"
+        }
+        prod {
+            buildConfigField 'String', 'BASE_URL', '"https://www.apiopen.top/"'
+            buildConfigField "boolean", "IS_DEBUG", "false"
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    implementation 'com.google.android:flexbox:0.3.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Support库
+    implementation rootProject.ext.supportLibs
+    // 网络请求库
+    implementation rootProject.ext.networkLibs
+    // RxJava2
+    implementation rootProject.ext.rxJavaLibs
+    implementation rootProject.ext.otherLibs
+    // APT dependencies(Kotlin内置的注解处理器)
+//    kapt rootProject.ext.annotationProcessorLibs
+
+    //GlideOkHttp
+    implementation(rootProject.ext.glideOkhttp) {
+        exclude group: 'glide-parent'
+    }
+    //smartRefreshLayout 下拉刷新
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    //Logger
+    implementation 'com.orhanobut:logger:2.1.1'
+    //Google开源的一个布局控件
+    implementation 'com.google.android:flexbox:0.3.1'
+//    implementation project(':multiple-status-view')
+    //模糊透明 View
+    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
+    //leakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //腾讯 bugly
+    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
+    //运行时权限
+    implementation'pub.devrel:easypermissions:1.2.0'
+    implementation project(':multiple-status-view')
 }
