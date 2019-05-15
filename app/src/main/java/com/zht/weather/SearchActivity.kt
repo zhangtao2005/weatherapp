@@ -33,8 +33,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     override fun showSuccessOnGetCity(data: ArrayList<CityBean>) {
         val searchAdapter = SearchCityAdapter(this,data,R.layout.search_item)
         mCityRecycler.adapter = searchAdapter
-        searchAdapter.notifyDataSetChanged()
-//        finish()
     }
 
     override fun showErrorOnGetCity(city: String) {

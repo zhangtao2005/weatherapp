@@ -8,7 +8,6 @@ package com.zht.weather.mvp
 interface SearchContract {
     interface Presenter: BasePresenter {
         fun search(city:String)
-        fun addCity(city:String)
     }
 
     interface View<T>: BaseView<Presenter> {

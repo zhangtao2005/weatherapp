@@ -26,7 +26,7 @@ class SearchPresenter:SearchContract.Presenter {
         HeWeather.getSearch(
             MyApplication.context,
             city,
-            "cn,overseas",
+            "cn",
             10,
             Lang.CHINESE_SIMPLIFIED,
             object : HeWeather.OnResultSearchBeansListener {
@@ -67,10 +67,6 @@ class SearchPresenter:SearchContract.Presenter {
                     }
                 }
         })
-
-    }
-
-    override fun addCity(city: String) {
 
     }
 

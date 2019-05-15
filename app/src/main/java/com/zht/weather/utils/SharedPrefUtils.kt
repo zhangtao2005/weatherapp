@@ -3,6 +3,7 @@ package com.zht.weather.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.zht.weather.MyApplication.Companion.context
+import io.reactivex.Observable
 
 /**
  *   author  :zhangtao
@@ -11,33 +12,40 @@ import com.zht.weather.MyApplication.Companion.context
  */
 object SharedPrefUtils {
 
-    const val PREF_NAME = "default_pref"
-    val mSharedPref:SharedPreferences
+    private const val PREF_NAME = "default_pref"
+    private var  mSharedPref:SharedPreferences
 
     init {
         mSharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
     fun putStringIntoSet(key:String,value:String){
-        var dataSet : HashSet<String>? = getStringSet(key) as HashSet<String>?
+        var dataSet : MutableSet<String>? = getStringSet(key)
         if(dataSet == null){
-            dataSet = HashSet()
+            dataSet = mutableSetOf()
         }
         dataSet.add(value)
-        mSharedPref.edit().putStringSet(value,dataSet).apply()
+        mSharedPref.edit().putStringSet(key,dataSet).apply()
     }
 
-    fun putStringIntoSetImediate(key:String,value:String){
-        var dataSet : HashSet<String>? = getStringSet(key) as HashSet<String>?
+    fun putStringIntoSetImmediate(key:String, value:String){
+        var dataSet : MutableSet<String>? = getStringSet(key)
         if(dataSet == null){
-            dataSet = HashSet()
+            dataSet = mutableSetOf()
         }
         dataSet.add(value)
-        mSharedPref.edit().putStringSet(value,dataSet).commit()
+        mSharedPref.edit().putStringSet(key,dataSet).commit()
     }
     
     fun getStringSet(key:String): MutableSet<String>? {
-        return mSharedPref.getStringSet(key,HashSet<String>())
+        val dataSet = mutableSetOf<String>()
+        val oldSet = mSharedPref.getStringSet(key,null)
+        oldSet?.let {
+            Observable.fromIterable(oldSet).map {
+                dataSet.add(it)
+            }.subscribe()
+        }
+        return dataSet
     }
     
     
