@@ -6,21 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <ImageView
-            android:id="@+id/tv_add"
+            android:id="@+id/iv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/add"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
+            android:padding="10dp"
             android:textColor="#eceff1"
+            android:transitionName="@string/search_transition_name"
+            tools:targetApi="lollipop"
+            tools:src="@drawable/add"
     />
+
     <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/tv_add"
+            app:layout_constraintLeft_toRightOf="@id/iv_add"
             app:layout_constraintTop_toTopOf="parent"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
@@ -32,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add"
+            app:layout_constraintTop_toBottomOf="@id/iv_add"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:textSize="32sp"

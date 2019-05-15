@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:transitionName="@string/search_transition_name"
+        app:backgroundTint="@color/backgroundColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:elevation="0dp"
+        app:fabSize="normal"
+        tools:targetApi="lollipop" />
+
+    <LinearLayout
+            android:id="@+id/rel_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColor"
+            android:orientation="vertical"
+    >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+        >
+
+            <RelativeLayout
+                    android:id="@+id/rel_search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                <com.zht.weather.view.ClearEditText
+                        android:id="@+id/et_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_toLeftOf="@+id/tv_cancel"
+                        android:background="@drawable/et_round_bg"
+                        android:drawableLeft="@mipmap/ic_action_search_small"
+                        android:drawablePadding="5dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/search_hint_text"
+                        android:imeOptions="actionSearch"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/color_gray"
+                        android:textColorHint="@color/color_darker_gray"
+                        android:textCursorDrawable="@drawable/et_cursor"
+                        android:textSize="12sp"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                <TextView
+                        android:id="@+id/tv_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:padding="4dp"
+                        android:text="@string/cancel" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+            android:id="@+id/layout_hot_words"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/tv_title_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/search_title_tip"
+                android:textColor="@color/color_gray"
+                android:textSize="12sp" />
+
+        <TextView
+                android:id="@+id/tv_hot_search_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
+                android:text="@string/search_hot_keywords_tip"
+                android:textColor="@color/color_black"
+                android:textSize="14sp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mCityRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp" />
+
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

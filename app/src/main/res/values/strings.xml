@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">WeatherMVP</string>
+    <string name="search_transition_name">searchTransition</string>
+    <string name="search_hint_text">添加更多城市</string>
+    <string name="cancel">取消</string>
+    <string name="search_title_tip">输入城市名添加更多城市天气</string>
+    <string name="search_hot_keywords_tip">- 热门搜索词 -</string>
+
+
 </resources>
