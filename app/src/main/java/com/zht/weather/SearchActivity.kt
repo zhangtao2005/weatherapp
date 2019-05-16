@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -134,9 +133,10 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun animateRevealShow() {
+//        fab_circle.setBackgroundColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
         ViewAnimUtils.animateRevealShow(
-            this, rel_frame,
-            fab_circle.width / 2, R.color.backgroundColor,
+            this, rel_container,
+            fab_circle.width / 2, R.color.design_default_color_primary_dark,
             object : ViewAnimUtils.OnRevealAnimationListener {
                 override fun onRevealHide() {
 
@@ -149,9 +149,9 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     }
 
     private fun setUpView() {
-        val animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
-        animation.duration = 300
-        rel_container.startAnimation(animation)
+//        val animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+//        animation.duration = 300
+//        rel_container.startAnimation(animation)
         rel_container.visibility = View.VISIBLE
         //打开软键盘
         openKeyBord(et_search_view, applicationContext)
@@ -165,9 +165,10 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     // 返回事件
     override fun onBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            fab_circle.setBackgroundColor(ContextCompat.getColor(this,R.color.backgroundColor))
             ViewAnimUtils.animateRevealHide(
-                this, rel_frame,
-                fab_circle.width / 2, R.color.backgroundColor,
+                this, rel_container,
+                fab_circle.width / 2, R.color.design_default_color_primary_dark,
                 object : ViewAnimUtils.OnRevealAnimationListener {
                     override fun onRevealHide() {
                         defaultBackPressed()

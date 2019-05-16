@@ -11,6 +11,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.zht.weather.R
 
 /**
  * Created by xuhao on 2017/12/1.
@@ -39,7 +40,8 @@ object ViewAnimUtils {
 
         // 设置圆形显示动画
         val anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius.toFloat(), finalRadius)
-        anim.duration = 300
+        val duration = context.resources.getInteger(R.integer.arc_anim_duration)
+        anim.duration = duration.toLong()
         anim.interpolator = AccelerateDecelerateInterpolator()
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -69,7 +71,8 @@ object ViewAnimUtils {
         val initialRadius = view.width
         // 与入场动画的区别就是圆圈起始和终止的半径相反
         val anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius.toFloat(), finalRadius.toFloat())
-        anim.duration = 300
+        val duration = context.resources.getInteger(R.integer.arc_anim_duration)
+        anim.duration = duration.toLong()
         anim.interpolator = AccelerateDecelerateInterpolator()
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {

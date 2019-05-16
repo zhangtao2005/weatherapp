@@ -52,6 +52,7 @@
             android:gravity="top|left"
             android:textStyle="bold"
             android:textColor="#eceff1"
+            android:visibility="gone"
     />
     <ImageView
             android:id="@+id/iv_weather_type"
@@ -59,7 +60,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/tv_celsius"
             app:layout_constraintTop_toTopOf="@id/tv_temperature"
-            android:src="@drawable/sunny"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
     />
