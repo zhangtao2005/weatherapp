@@ -2,12 +2,10 @@ package com.zht.weather
 
 import android.Manifest
 import android.content.Intent
-import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.zht.weather.base.BaseActivity
-import com.zht.weather.ui.LocalWeatherFragment
-import com.zht.weather.utils.ConstantValues
+import com.zht.weather.ui.WeatherMain
 import com.zht.weather.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -25,16 +23,13 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val city:String? = intent.getStringExtra(ConstantValues.SELECT_ONE_CITY)
-        city?.apply {
-            Log.i(ConstantValues.TAG_SEARCH,"initData city = $city")
 
-        }
     }
 
     override fun onNewIntent(intent: Intent?) {
         setIntent(intent)
-        initData()
+        contentFragment = WeatherMain()
+        supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
         super.onNewIntent(intent)
     }
 
@@ -43,8 +38,8 @@ class MainActivity : BaseActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
         StatusBarUtil.immersive(this)
         StatusBarUtil.setPaddingSmart(this, content)
-        contentFragment = LocalWeatherFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commit()
+        contentFragment = WeatherMain()
+        supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
     }
 
     override fun start() {

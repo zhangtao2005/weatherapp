@@ -37,8 +37,8 @@ abstract class BaseFragment:Fragment(),EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepared = true
-        lazyLoadDataIfPrepared()
         initView()
+        lazyLoadDataIfPrepared()
         //多种状态切换的view 重试点击事件
         mLayoutStatusView?.setOnClickListener(mRetryClickListener)
     }

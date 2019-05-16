@@ -6,11 +6,9 @@ import android.transition.Fade
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zht.weather.base.BaseActivity
 import com.zht.weather.model.CityBean
@@ -67,22 +65,19 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
 
         mCityRecycler.layoutManager = LinearLayoutManager(this)
 
-        et_search_view.setOnEditorActionListener(object : TextView.OnEditorActionListener{
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    closeSoftKeyboard()
-                    keyWords = et_search_view.text.toString().trim()
-                    Log.i(ConstantValues.TAG_SEARCH,"keyWords == null ? "+(keyWords.isNullOrEmpty()))
-                    if (keyWords.isNullOrEmpty()) {
-                        showToast("请输入你感兴趣的关键词")
-                    } else {
-                        searchPresenter.search(et_search_view.text.toString().trim())
-                    }
-
+        et_search_view.setOnEditorActionListener { _, actionId, _ ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                closeSoftKeyboard()
+                keyWords = et_search_view.text.toString().trim()
+                Log.i(ConstantValues.TAG_SEARCH,"keyWords == null ? "+(keyWords.isNullOrEmpty()))
+                if (keyWords.isNullOrEmpty()) {
+                    showToast("请输入你感兴趣的城市")
+                } else {
+                    searchPresenter.search(et_search_view.text.toString().trim())
                 }
-                return false
             }
-        })
+            return@setOnEditorActionListener false
+         }
 
     }
 

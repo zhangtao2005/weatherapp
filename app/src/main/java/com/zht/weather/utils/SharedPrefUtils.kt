@@ -3,7 +3,6 @@ package com.zht.weather.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.zht.weather.MyApplication.Companion.context
-import io.reactivex.Observable
 
 /**
  *   author  :zhangtao
@@ -37,13 +36,11 @@ object SharedPrefUtils {
         mSharedPref.edit().putStringSet(key,dataSet).commit()
     }
     
-    fun getStringSet(key:String): MutableSet<String>? {
+    fun getStringSet(key:String): MutableSet<String> {
         val dataSet = mutableSetOf<String>()
         val oldSet = mSharedPref.getStringSet(key,null)
         oldSet?.let {
-            Observable.fromIterable(oldSet).map {
-                dataSet.add(it)
-            }.subscribe()
+            oldSet.forEach { dataSet.add(it) }
         }
         return dataSet
     }
