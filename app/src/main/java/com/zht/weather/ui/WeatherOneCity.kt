@@ -1,5 +1,6 @@
 package com.zht.weather.ui
 
+import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
 import com.zht.weather.R
@@ -21,11 +22,13 @@ class WeatherOneCity: BaseFragment(), LocalContract.View{
 
     override fun initView() {
         city = arguments?.getString(ConstantValues.SELECT_ONE_CITY) ?: "北京"
+        Log.i(TAG,"initView city = $city")
+        localPresenter = LocalWeatherPresenter(this)
+        localPresenter.loadWeather(city)
     }
 
     override fun lazyLoad() {
-        localPresenter = LocalWeatherPresenter(this)
-        localPresenter.loadWeather(city)
+
     }
 
     override fun getLayoutId(): Int {

@@ -11,31 +11,41 @@
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_temperature"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:textColor="#eceff1"
     />
     <TextView
             android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location"
+            app:layout_constraintRight_toLeftOf="@+id/tv_celsius"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:textSize="32sp"
             android:textColor="#eceff1"
     />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
     <TextView
             android:id="@+id/tv_celsius"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/tv_temperature"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_temperature"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:text="。"
             android:gravity="top|left"
             android:textStyle="bold"
@@ -48,18 +58,19 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/tv_celsius"
             app:layout_constraintTop_toTopOf="@id/tv_temperature"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_temperature"
+            android:padding="10dp"
     />
     <TextView
             android:id="@+id/weather_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_temperature"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:textColor="#eceff1"
     />
 

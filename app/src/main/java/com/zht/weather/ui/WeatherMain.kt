@@ -28,7 +28,7 @@ class WeatherMain: BaseFragment(), MainContract.View{
             fragmentPagerItem = FragmentPagerItem.of(it,WeatherOneCity::class.java,bundle)
             fragmentItems.add(fragmentPagerItem)
         }
-        val fragmentPageAdapter = FragmentPagerItemAdapter(fragmentManager,
+        val fragmentPageAdapter = FragmentPagerItemAdapter(childFragmentManager,
             fragmentItems)
         viewpager.adapter = fragmentPageAdapter
         viewpagertab.setViewPager(viewpager)

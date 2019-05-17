@@ -98,21 +98,11 @@
                 android:textColor="@color/color_gray"
                 android:textSize="12sp" />
 
-        <TextView
-                android:id="@+id/tv_hot_search_words"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15dp"
-                android:text="@string/search_hot_keywords_tip"
-                android:textColor="@color/color_black"
-                android:textSize="14sp" />
-
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mCityRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp" />
 
