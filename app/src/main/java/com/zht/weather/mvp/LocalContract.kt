@@ -9,6 +9,6 @@ interface LocalContract{
 
     interface View: BaseView<Presenter> {
         fun showWeatherOnLocation(weather:WeatherData)
-        fun showErrorOnGetLocalWeather()
+        fun showErrorOnGetLocalWeather(city:String)
     }
 }

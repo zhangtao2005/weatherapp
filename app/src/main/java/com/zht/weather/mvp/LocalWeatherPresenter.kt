@@ -37,6 +37,7 @@ class LocalWeatherPresenter: LocalContract.Presenter {
             object : HeWeather.OnResultWeatherNowBeanListener {
                 override fun onError(e: Throwable) {
                     Log.i(MainActivity.TAG, "Weather Now onError: ", e)
+                    mLocalView.showErrorOnGetLocalWeather(it)
                 }
 
                 override fun onSuccess(dataObject: Now) {

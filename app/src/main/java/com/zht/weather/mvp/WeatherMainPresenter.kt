@@ -11,6 +11,7 @@ import com.zht.weather.utils.SharedPrefUtils
  */
 class WeatherMainPresenter:MainContract.Presenter {
     private var mView:MainContract.View
+    private var lastSize:Int = 0
 
     constructor(view:MainContract.View){
         mView = view
@@ -19,7 +20,10 @@ class WeatherMainPresenter:MainContract.Presenter {
     override fun loadWeathers() {
         val set = SharedPrefUtils.getStringSet(ConstantValues.SELECT_CITIES)
         Log.i(ConstantValues.TAG_MAIN,"set size = ${set.size}")
-        mView.onGetAllCityNames(set)
+//        if(lastSize != set.size) {
+            mView.onGetAllCityNames(set)
+//        }
+        lastSize = set.size
     }
 
     override fun subscribe() {

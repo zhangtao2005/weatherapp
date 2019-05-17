@@ -100,11 +100,20 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mCityRecycler"
+                android:id="@+id/mSelectedCityRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mSearchCityRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:visibility="gone"
+        />
 
     </LinearLayout>
     </LinearLayout>

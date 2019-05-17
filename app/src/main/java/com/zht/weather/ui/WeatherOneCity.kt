@@ -5,9 +5,11 @@ import android.view.View
 import androidx.annotation.NonNull
 import com.zht.weather.R
 import com.zht.weather.WeatherData
+import com.zht.weather.base.BaseActivity
 import com.zht.weather.base.BaseFragment
 import com.zht.weather.mvp.LocalContract
 import com.zht.weather.mvp.LocalWeatherPresenter
+import com.zht.weather.showToast
 import com.zht.weather.utils.ConstantValues
 import com.zht.weather.utils.IconUtils
 import kotlinx.android.synthetic.main.fragment_main_item.*
@@ -58,8 +60,10 @@ class WeatherOneCity: BaseFragment(), LocalContract.View{
 
     private lateinit var localPresenter: LocalContract.Presenter
 
-    override fun showErrorOnGetLocalWeather() {
-
+    override fun showErrorOnGetLocalWeather(city:String) {
+        activity?.let {
+            (activity as BaseActivity).showToast("未能获取到${city}的天气信息")
+        }
     }
 
     override fun setPresenter(@NonNull presenter: LocalContract.Presenter) {

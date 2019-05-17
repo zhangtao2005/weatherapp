@@ -66,6 +66,11 @@ class WeatherMain: BaseFragment(), MainContract.View{
         iv_add.setOnClickListener(onAddClicked)
     }
 
+    override fun onResume() {
+        super.onResume()
+        localPresenter.loadWeathers()
+    }
+
     override fun lazyLoad() {
         localPresenter = WeatherMainPresenter(this)
         localPresenter.loadWeathers()

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.*
 import com.zht.weather.base.BaseActivity
 import com.zht.weather.model.CityBean
 import com.zht.weather.mvp.SearchContract
@@ -18,9 +19,26 @@ import com.zht.weather.utils.ConstantValues
 import com.zht.weather.utils.StatusBarUtil
 import com.zht.weather.view.ViewAnimUtils
 import com.zht.weather.view.recyclerview.SearchCityAdapter
+import com.zht.weather.view.recyclerview.SelectedCityAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
+    override fun showSelectedCities(data: ArrayList<String>) {
+
+        val selectAdapter = SelectedCityAdapter(this,data,R.layout.select_item)
+        mSelectedCityRecycler.adapter = selectAdapter
+
+        val flexBoxLayoutManager = FlexboxLayoutManager(this)
+        flexBoxLayoutManager.flexWrap = FlexWrap.WRAP      //按正常方向换行
+        flexBoxLayoutManager.flexDirection = FlexDirection.ROW   //主轴为水平方向，起点在左端
+        flexBoxLayoutManager.alignItems = AlignItems.CENTER    //定义项目在副轴轴上如何对齐
+        flexBoxLayoutManager.justifyContent = JustifyContent.FLEX_START  //多个轴对齐方式
+        mSelectedCityRecycler.layoutManager = flexBoxLayoutManager
+
+        mSearchCityRecycler.visibility = View.GONE
+        mSelectedCityRecycler.visibility = View.VISIBLE
+    }
+
     private var keyWords: String? = null
 
     override fun setPresenter(presenter: SearchContract.Presenter) {
@@ -29,11 +47,14 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
 
     override fun showSuccessOnGetCity(data: ArrayList<CityBean>) {
         val searchAdapter = SearchCityAdapter(this,data,R.layout.search_item)
-        mCityRecycler.adapter = searchAdapter
+        mSearchCityRecycler.adapter = searchAdapter
+        mSearchCityRecycler.layoutManager = LinearLayoutManager(this)
+        mSearchCityRecycler.visibility = View.VISIBLE
+        mSelectedCityRecycler.visibility = View.GONE
     }
 
     override fun showErrorOnGetCity(city: String) {
-
+        showToast("未能查询到${city}的信息")
     }
 
     private val searchPresenter:SearchContract.Presenter by lazy{
@@ -63,8 +84,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
         //取消
         tv_cancel.setOnClickListener { onBackPressed() }
 
-        mCityRecycler.layoutManager = LinearLayoutManager(this)
-
         et_search_view.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
                 closeSoftKeyboard()
@@ -78,6 +97,8 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
             }
             return@setOnEditorActionListener false
          }
+
+        searchPresenter.querySelectedCities()
 
     }
 
@@ -128,7 +149,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun animateRevealShow() {
-//        fab_circle.setBackgroundColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
         ViewAnimUtils.animateRevealShow(
             this, rel_container,
             fab_circle.width / 2, R.color.design_default_color_primary_dark,
@@ -144,10 +164,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     }
 
     private fun setUpView() {
-//        val animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
-//        animation.duration = 300
-//        rel_container.startAnimation(animation)
-        rel_container.visibility = View.VISIBLE
         //打开软键盘
         openKeyBord(et_search_view, applicationContext)
     }
@@ -160,7 +176,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     // 返回事件
     override fun onBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            fab_circle.setBackgroundColor(ContextCompat.getColor(this,R.color.backgroundColor))
             ViewAnimUtils.animateRevealHide(
                 this, rel_container,
                 fab_circle.width / 2, R.color.design_default_color_primary_dark,

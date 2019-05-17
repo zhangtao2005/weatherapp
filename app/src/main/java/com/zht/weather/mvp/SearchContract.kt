@@ -8,10 +8,12 @@ package com.zht.weather.mvp
 interface SearchContract {
     interface Presenter: BasePresenter {
         fun search(city:String)
+        fun querySelectedCities()
     }
 
     interface View<T>: BaseView<Presenter> {
         fun showSuccessOnGetCity(data:ArrayList<T>)
         fun showErrorOnGetCity(city:String)
+        fun showSelectedCities(data:ArrayList<String>)
     }
 }

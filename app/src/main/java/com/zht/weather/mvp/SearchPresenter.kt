@@ -5,10 +5,10 @@ import android.util.Log
 import com.zht.weather.MyApplication
 import com.zht.weather.model.CityBean
 import com.zht.weather.utils.ConstantValues
+import com.zht.weather.utils.SharedPrefUtils
 import interfaces.heweather.com.interfacesmodule.bean.Lang
 import interfaces.heweather.com.interfacesmodule.bean.search.Search
 import interfaces.heweather.com.interfacesmodule.view.HeWeather
-import java.util.*
 
 /**
  *   author  :zhangtao
@@ -16,6 +16,15 @@ import java.util.*
  *   desc    :
  */
 class SearchPresenter:SearchContract.Presenter {
+    override fun querySelectedCities() {
+        val set = SharedPrefUtils.getStringSet(ConstantValues.SELECT_CITIES)
+        val citiesList = ArrayList<String>()
+        set.forEach {
+            citiesList.add(it)
+        }
+        mLocalView.showSelectedCities(citiesList)
+    }
+
     private  var mLocalView:SearchContract.View<CityBean>
 
     constructor(searchView:SearchContract.View<CityBean>){
@@ -33,6 +42,7 @@ class SearchPresenter:SearchContract.Presenter {
                 override fun onError(throwable: Throwable) {
                     val search = Search()
                     search.status = "noData"
+                    mLocalView.showErrorOnGetCity(city)
                 }
 
                 override fun onSuccess(search: Search) {

@@ -45,7 +45,9 @@ object SharedPrefUtils {
         return dataSet
     }
     
-    
+    fun putStringSet(key:String,set:MutableSet<String>){
+        mSharedPref.edit().putStringSet(key,set).apply()
+    }
 
     
 }

@@ -20,8 +20,11 @@ abstract class BaseRecyclerAdapter<T>(var mContext:Context,var mData:ArrayList<T
 
     private var mItemLongClickListener:OnItemLongClickListener? = null
 
+    protected var datas:ArrayList<T>? = null
+
     init{
         mInflater = LayoutInflater.from(mContext)
+        datas = mData
     }
 
     constructor(context: Context,data : ArrayList<T> ,typeSupport:MultiType<T>):this(context,data,-1){
