@@ -16,11 +16,10 @@ import kotlinx.android.synthetic.main.fragment_main_item.*
 import org.joda.time.DateTime
 
 class WeatherOneCity: BaseFragment(), LocalContract.View{
-    lateinit var city:String
+    private lateinit var city:String
     companion object {
        const val TAG = "WeatherMain"
     }
-
 
     override fun initView() {
         city = arguments?.getString(ConstantValues.SELECT_ONE_CITY) ?: "北京"

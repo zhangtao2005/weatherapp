@@ -9,6 +9,7 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.squareup.leakcanary.RefWatcher
+import com.tencent.mmkv.MMKV
 import com.zht.weather.utils.ConstantValues
 import interfaces.heweather.com.interfacesmodule.view.HeConfig
 import kotlin.properties.Delegates
@@ -37,6 +38,7 @@ class MyApplication : Application() {
         super.onCreate()
         context = this
         registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
+        MMKV.initialize(this)
         initConfig()
         HeConfig.init(ConstantValues.HE_WERTHER_APP_ID, ConstantValues.HE_WEATHER_APP_KEY)
         HeConfig.switchToFreeServerNode()

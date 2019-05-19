@@ -2,10 +2,12 @@ package com.zht.weather
 
 import android.Manifest
 import android.content.Intent
+import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.zht.weather.base.BaseActivity
 import com.zht.weather.ui.WeatherMain
+import com.zht.weather.utils.ConstantValues
 import com.zht.weather.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -27,6 +29,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onNewIntent(intent: Intent?) {
+        Log.i(ConstantValues.TAG_MAIN,"enter onNewIntent")
         setIntent(intent)
         contentFragment = WeatherMain()
         supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()

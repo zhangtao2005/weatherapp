@@ -2,7 +2,7 @@ package com.zht.weather.mvp
 
 import android.util.Log
 import com.zht.weather.utils.ConstantValues
-import com.zht.weather.utils.SharedPrefUtils
+import com.zht.weather.utils.MMKVUtils
 
 /**
  *   author  :zhangtao
@@ -18,7 +18,7 @@ class WeatherMainPresenter:MainContract.Presenter {
     }
 
     override fun loadWeathers() {
-        val set = SharedPrefUtils.getStringSet(ConstantValues.SELECT_CITIES)
+        val set = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
         Log.i(ConstantValues.TAG_MAIN,"set size = ${set.size}")
 //        if(lastSize != set.size) {
             mView.onGetAllCityNames(set)

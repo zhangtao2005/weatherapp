@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.zht.weather.R
 import com.zht.weather.utils.ConstantValues
-import com.zht.weather.utils.SharedPrefUtils
+import com.zht.weather.utils.MMKVUtils
 
 /**
  *   author  :zhangtao
@@ -29,10 +29,10 @@ class SelectedCityAdapter(context: Context, cities:ArrayList<String>, layoutId:I
 
     private fun removeOneCity(city:String,position: Int){
         datas?.remove(city)
-        notifyItemChanged(position)
-        val citiesSet = SharedPrefUtils.getStringSet(ConstantValues.SELECT_CITIES)
+        notifyDataSetChanged()
+        val citiesSet = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
         if(citiesSet.remove(city)) {
-            SharedPrefUtils.putStringSet(ConstantValues.SELECT_CITIES, citiesSet)
+            MMKVUtils.putStringSet(ConstantValues.SELECT_CITIES, citiesSet)
         }
     }
 }

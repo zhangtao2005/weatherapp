@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.zht.weather"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -21,16 +21,6 @@ android {
         }
     }
     flavorDimensions "app"
-    productFlavors {
-        stage {
-            buildConfigField 'String', 'BASE_URL', '"https://www.apiopen.top/"'
-            buildConfigField "boolean", "IS_DEBUG", "true"
-        }
-        prod {
-            buildConfigField 'String', 'BASE_URL', '"https://www.apiopen.top/"'
-            buildConfigField "boolean", "IS_DEBUG", "false"
-        }
-    }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/transition-21', 'src/main/res/transition-v21'] } }
 }
 
@@ -43,6 +33,7 @@ dependencies {
     implementation 'com.google.android:flexbox:1.1.0'
     implementation 'joda-time:joda-time:2.10'
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.tencent:mmkv:1.0.19'
     //Optional: see how to use the utility.
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
     testImplementation 'junit:junit:4.12'

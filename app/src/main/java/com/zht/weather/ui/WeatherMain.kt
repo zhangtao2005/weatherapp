@@ -3,6 +3,7 @@ package com.zht.weather.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem
@@ -25,9 +26,24 @@ class WeatherMain: BaseFragment(), MainContract.View{
         set.forEach {
             bundle = Bundle()
             bundle.putString(ConstantValues.SELECT_ONE_CITY,it)
+            Log.i(TAG,"it = $it")
             fragmentPagerItem = FragmentPagerItem.of(it,WeatherOneCity::class.java,bundle)
             fragmentItems.add(fragmentPagerItem)
         }
+
+        //remove former datas,need a refresh after data size change
+        val fragmentTransaction = childFragmentManager.beginTransaction()
+        if (null != fragmentTransaction) {
+            val fragments = childFragmentManager.fragments
+            if (fragments.isNotEmpty()) {
+                for (mm in fragments.indices) {
+                    if (null != fragments[mm]) {
+                        fragmentTransaction.remove(fragments[mm]).commitNowAllowingStateLoss()
+                    }
+                }
+            }
+        }
+
         val fragmentPageAdapter = FragmentPagerItemAdapter(childFragmentManager,
             fragmentItems)
         viewpager.adapter = fragmentPageAdapter
@@ -45,6 +61,7 @@ class WeatherMain: BaseFragment(), MainContract.View{
     companion object {
        const val TAG = "WeatherMain"
     }
+
     override fun onAddClicked() {
         openSearchActivity()
     }
