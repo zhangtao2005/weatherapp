@@ -38,9 +38,9 @@
         app:stl_overlineColor="#4D000000"
         app:stl_overlineThickness="0dp"
         app:stl_underlineColor="#4D000000"
-        app:stl_underlineThickness="1dp"
+        app:stl_underlineThickness="0dp"
         app:stl_dividerColor="#4D000000"
-        app:stl_dividerThickness="1dp"
+        app:stl_dividerThickness="0dp"
         app:stl_defaultTabBackground="?attr/selectableItemBackground"
         app:stl_defaultTabTextAllCaps="true"
         app:stl_defaultTabTextColor="#FC000000"
@@ -51,6 +51,17 @@
         app:stl_clickable="true"
         app:stl_titleOffset="24dp"
         app:stl_drawDecorationAfterTab="false"
+    />
+
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_text"
+        android:layout_centerInParent="true"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:text="@string/add_city_tip"
     />
 
     <androidx.viewpager.widget.ViewPager

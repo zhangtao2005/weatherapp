@@ -3,14 +3,12 @@ package com.zht.weather.base
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import com.classic.common.MultipleStatusView
 import com.zht.weather.MyApplication
-import io.reactivex.annotations.NonNull
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -21,10 +19,6 @@ import pub.devrel.easypermissions.EasyPermissions
  * desc:BaseActivity基类
  */
 abstract class BaseActivity : AppCompatActivity(),EasyPermissions.PermissionCallbacks {
-    /**
-     * 多种状态的 View 的切换
-     */
-    protected var mLayoutStatusView: MultipleStatusView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +30,7 @@ abstract class BaseActivity : AppCompatActivity(),EasyPermissions.PermissionCall
     }
 
     private fun initListener() {
-        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
-    }
 
-    open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
-        start()
     }
 
 

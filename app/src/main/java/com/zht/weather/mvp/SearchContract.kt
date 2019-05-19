@@ -11,7 +11,7 @@ interface SearchContract {
         fun querySelectedCities()
     }
 
-    interface View<T>: BaseView<Presenter> {
+    interface View<T>: BaseView {
         fun showSuccessOnGetCity(data:ArrayList<T>)
         fun showErrorOnGetCity(city:String)
         fun showSelectedCities(data:ArrayList<String>)

@@ -1,7 +1,9 @@
 package com.zht.weather.mvp
 
-interface BaseView<T> {
+interface BaseView {
 
-    fun setPresenter(presenter: T)
+    fun showLoading()
+
+    fun dismissLoading()
 
 }

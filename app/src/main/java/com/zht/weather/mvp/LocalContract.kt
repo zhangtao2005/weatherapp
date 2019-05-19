@@ -7,7 +7,7 @@ interface LocalContract{
         fun loadWeather(city:String?)
     }
 
-    interface View: BaseView<Presenter> {
+    interface View: BaseView {
         fun showWeatherOnLocation(weather:WeatherData)
         fun showErrorOnGetLocalWeather(city:String)
     }

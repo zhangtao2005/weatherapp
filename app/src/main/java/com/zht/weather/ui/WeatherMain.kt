@@ -3,7 +3,6 @@ package com.zht.weather.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem
@@ -18,48 +17,54 @@ import com.zht.weather.utils.ConstantValues
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class WeatherMain: BaseFragment(), MainContract.View{
+    override fun showLoading() {
+
+    }
+
+    override fun dismissLoading() {
+
+    }
+
+    private val localPresenter by lazy{
+        WeatherMainPresenter(this)
+    }
+
+    companion object {
+        const val TAG = "WeatherMain"
+    }
 
     override fun onGetAllCityNames(set: MutableSet<String>) {
+        if(set.size > 0){
+            hint.visibility = View.GONE
+        }
         val fragmentItems = FragmentPagerItems(activity)
         var fragmentPagerItem:FragmentPagerItem
         var bundle:Bundle
         set.forEach {
             bundle = Bundle()
             bundle.putString(ConstantValues.SELECT_ONE_CITY,it)
-            Log.i(TAG,"it = $it")
             fragmentPagerItem = FragmentPagerItem.of(it,WeatherOneCity::class.java,bundle)
             fragmentItems.add(fragmentPagerItem)
         }
 
         //remove former datas,need a refresh after data size change
         val fragmentTransaction = childFragmentManager.beginTransaction()
-        if (null != fragmentTransaction) {
+        fragmentTransaction?.let {
             val fragments = childFragmentManager.fragments
             if (fragments.isNotEmpty()) {
                 for (mm in fragments.indices) {
-                    if (null != fragments[mm]) {
-                        fragmentTransaction.remove(fragments[mm]).commitNowAllowingStateLoss()
+                    fragments[mm]?.let {
+                        fragmentTransaction.remove(it).commitNowAllowingStateLoss()
                     }
                 }
             }
         }
 
+
         val fragmentPageAdapter = FragmentPagerItemAdapter(childFragmentManager,
             fragmentItems)
         viewpager.adapter = fragmentPageAdapter
         viewpagertab.setViewPager(viewpager)
-    }
-
-    override fun setPresenter(presenter: MainContract.Presenter) {
-
-    }
-
-    override fun onTabSelected(index: Int) {
-
-    }
-
-    companion object {
-       const val TAG = "WeatherMain"
     }
 
     override fun onAddClicked() {
@@ -81,6 +86,7 @@ class WeatherMain: BaseFragment(), MainContract.View{
 
     override fun initView() {
         iv_add.setOnClickListener(onAddClicked)
+        hint.visibility = View.VISIBLE
     }
 
     override fun onResume() {
@@ -89,14 +95,11 @@ class WeatherMain: BaseFragment(), MainContract.View{
     }
 
     override fun lazyLoad() {
-        localPresenter = WeatherMainPresenter(this)
         localPresenter.loadWeathers()
     }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_main
     }
-
-    private lateinit var localPresenter: MainContract.Presenter
 
 }

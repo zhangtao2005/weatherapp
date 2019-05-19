@@ -23,6 +23,18 @@ import com.zht.weather.view.recyclerview.SelectedCityAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
+    override fun showLoading() {
+
+    }
+
+    override fun dismissLoading() {
+
+    }
+
+    private val searchPresenter by lazy{
+        SearchPresenter(this)
+    }
+
     override fun showSelectedCities(data: ArrayList<String>) {
 
         val selectAdapter = SelectedCityAdapter(this,data,R.layout.select_item)
@@ -39,12 +51,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
         mSelectedCityRecycler.visibility = View.VISIBLE
     }
 
-    private var keyWords: String? = null
-
-    override fun setPresenter(presenter: SearchContract.Presenter) {
-
-    }
-
     override fun showSuccessOnGetCity(data: ArrayList<CityBean>) {
         val searchAdapter = SearchCityAdapter(this,data,R.layout.search_item)
         mSearchCityRecycler.adapter = searchAdapter
@@ -55,10 +61,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
 
     override fun showErrorOnGetCity(city: String) {
         showToast("未能查询到${city}的信息")
-    }
-
-    private val searchPresenter:SearchContract.Presenter by lazy{
-        SearchPresenter(this)
     }
 
     override fun layoutId(): Int {
@@ -87,7 +89,7 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
         et_search_view.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
                 closeSoftKeyboard()
-                keyWords = et_search_view.text.toString().trim()
+                val keyWords = et_search_view.text.toString().trim()
                 Log.i(ConstantValues.TAG_SEARCH,"keyWords == null ? "+(keyWords.isNullOrEmpty()))
                 if (keyWords.isNullOrEmpty()) {
                     showToast("请输入你感兴趣的城市")
@@ -202,7 +204,7 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
     /**
      * 关闭软件盘
      */
-    fun closeSoftKeyboard() {
+    private fun closeSoftKeyboard() {
         closeKeyBord(et_search_view, applicationContext)
     }
 }

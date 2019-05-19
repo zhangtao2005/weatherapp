@@ -5,9 +5,8 @@ interface MainContract{
         fun loadWeathers()
     }
 
-    interface View: BaseView<Presenter> {
+    interface View: BaseView {
         fun onGetAllCityNames(set:MutableSet<String>)
-        fun onTabSelected(index:Int)
         fun onAddClicked()
     }
 }

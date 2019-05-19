@@ -10,34 +10,29 @@ import interfaces.heweather.com.interfacesmodule.bean.Lang
 import interfaces.heweather.com.interfacesmodule.bean.Unit
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now
 import interfaces.heweather.com.interfacesmodule.view.HeWeather
-import io.reactivex.disposables.CompositeDisposable
 
 class LocalWeatherPresenter: LocalContract.Presenter {
     private var mLocalView:LocalContract.View
 
-    private val mCompositeDisposable: CompositeDisposable by lazy {
-        CompositeDisposable()
-    }
 
     constructor(view:LocalContract.View){
         mLocalView = view
     }
 
     override fun loadWeather(city:String?) {
-        mCompositeDisposable.clear()
         city?.let { getOneCityWeather(it) }
     }
 
-    private fun getOneCityWeather(it: String) {
+    private fun getOneCityWeather(city: String) {
         HeWeather.getWeatherNow(
             MyApplication.context,
-            it,
+            city,
             Lang.CHINESE_SIMPLIFIED,
             Unit.METRIC,
             object : HeWeather.OnResultWeatherNowBeanListener {
                 override fun onError(e: Throwable) {
                     Log.i(MainActivity.TAG, "Weather Now onError: ", e)
-                    mLocalView.showErrorOnGetLocalWeather(it)
+                    mLocalView.showErrorOnGetLocalWeather(city)
                 }
 
                 override fun onSuccess(dataObject: Now) {

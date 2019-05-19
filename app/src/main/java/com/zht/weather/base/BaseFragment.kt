@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import com.classic.common.MultipleStatusView
-import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.zht.weather.MyApplication
-import com.zht.weather.showToast
-import io.reactivex.annotations.NonNull
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -25,10 +22,6 @@ abstract class BaseFragment:Fragment(),EasyPermissions.PermissionCallbacks {
 
     private var isViewPrepared = false
     private var isLoadData = false
-    /**
-     * 多种状态的 View 的切换
-     */
-    protected var mLayoutStatusView: MultipleStatusView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutId(),null)
@@ -39,8 +32,6 @@ abstract class BaseFragment:Fragment(),EasyPermissions.PermissionCallbacks {
         isViewPrepared = true
         initView()
         lazyLoadDataIfPrepared()
-        //多种状态切换的view 重试点击事件
-        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
     }
 
     abstract fun initView()
@@ -122,15 +113,4 @@ abstract class BaseFragment:Fragment(),EasyPermissions.PermissionCallbacks {
         }
     }
 
-    /**
-     * 显示错误信息
-     */
-    fun showError(msg: String, errorCode: Int) {
-        showToast(msg)
-        if (errorCode == ErrorStatus.NETWORK_ERROR) {
-            mLayoutStatusView?.showNoNetwork()
-        } else {
-            mLayoutStatusView?.showError()
-        }
-    }
 }
