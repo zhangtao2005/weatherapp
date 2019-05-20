@@ -20,9 +20,7 @@ class WeatherMainPresenter:MainContract.Presenter {
     override fun loadWeathers() {
         val set = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
         Log.i(ConstantValues.TAG_MAIN,"set size = ${set.size}")
-//        if(lastSize != set.size) {
-            mView.onGetAllCityNames(set)
-//        }
+        mView.onGetAllCityNames(set)
         lastSize = set.size
     }
 

@@ -30,9 +30,14 @@ class MainActivity : BaseActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         Log.i(ConstantValues.TAG_MAIN,"enter onNewIntent")
-        setIntent(intent)
-        contentFragment = WeatherMain()
-        supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
+        intent?.let {
+            val oneCity = it.getStringExtra(ConstantValues.SELECT_ONE_CITY)
+            oneCity?.let {
+                contentFragment = WeatherMain()
+                supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
+            }
+        }
+
         super.onNewIntent(intent)
     }
 

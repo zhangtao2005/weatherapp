@@ -3,6 +3,7 @@ package com.zht.weather.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem
@@ -17,6 +18,9 @@ import com.zht.weather.utils.ConstantValues
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class WeatherMain: BaseFragment(), MainContract.View{
+    private var mDataSet:MutableSet<String>? = null
+    private var isLoadWeather = false
+
     override fun showLoading() {
 
     }
@@ -36,7 +40,16 @@ class WeatherMain: BaseFragment(), MainContract.View{
     override fun onGetAllCityNames(set: MutableSet<String>) {
         if(set.size > 0){
             hint.visibility = View.GONE
+        }else{
+            hint.visibility = View.VISIBLE
         }
+        mDataSet?.let {
+            if( mDataSet == set){
+                return
+            }
+        }
+        mDataSet = set
+
         val fragmentItems = FragmentPagerItems(activity)
         var fragmentPagerItem:FragmentPagerItem
         var bundle:Bundle
@@ -64,6 +77,7 @@ class WeatherMain: BaseFragment(), MainContract.View{
         val fragmentPageAdapter = FragmentPagerItemAdapter(childFragmentManager,
             fragmentItems)
         viewpager.adapter = fragmentPageAdapter
+        Log.i(TAG,"set fragmentPageAdapter")
         viewpagertab.setViewPager(viewpager)
     }
 
@@ -91,11 +105,18 @@ class WeatherMain: BaseFragment(), MainContract.View{
 
     override fun onResume() {
         super.onResume()
-        localPresenter.loadWeathers()
+        isLoadWeatherThisTime()
     }
 
     override fun lazyLoad() {
-        localPresenter.loadWeathers()
+//        isLoadWeatherThisTime()
+    }
+
+    private fun isLoadWeatherThisTime() {
+//        if(!isLoadWeather) {
+            localPresenter.loadWeathers()
+//            isLoadWeather = true
+//        }
     }
 
     override fun getLayoutId(): Int {

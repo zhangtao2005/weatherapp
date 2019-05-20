@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/color_text"
         android:layout_centerInParent="true"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:gravity="center"
         android:text="@string/add_city_tip"
     />
