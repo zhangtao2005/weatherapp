@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
-import androidx.fragment.app.Fragment
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
@@ -83,11 +83,9 @@ class WeatherMain: BaseFragment(), MainContract.View{
         //switch to the selected city
         if(selectCity != null ){
             for(i in 0 until fragmentPageAdapter.count ) {
-                val frag = fragmentPageAdapter.instantiateItem(viewpager,i)
-                frag?.let {
-                    if(frag is Fragment && frag.arguments?.getString(ConstantValues.SELECT_ONE_CITY) == selectCity) {
-                        viewpager.setCurrentItem(i, true)
-                    }
+                val child = viewpagertab.getTabAt(i)
+                if(child is TextView && child.text == selectCity){
+                    viewpager.setCurrentItem(i,true)
                 }
             }
         }
