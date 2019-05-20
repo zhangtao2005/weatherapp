@@ -1,6 +1,10 @@
 A practice application
 Use HeWeather+Kotlin+MVP+AndroidX etc.
 
+Use smarttablayout to show multiple cities , use transition animation to provide a better experience , flexbox is used to show
+the selected city , also you can remove the city you won't concern directly , MMKV is used to store the cities you selected,
+thanks to all these opensource projects and their authors !
+
 Use HeWeather as the source of Weather info , thanks!
 And thanks to https://github.com/git-xuhao/KotlinMvp and https://github.com/googlesamples/android-architecture , where I study from
 
