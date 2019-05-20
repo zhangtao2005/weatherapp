@@ -38,10 +38,6 @@ class WeatherOneCity: BaseFragment(), LocalContract.View{
         localPresenter.loadWeather(city)
     }
 
-    override fun lazyLoad() {
-
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_main_item
     }

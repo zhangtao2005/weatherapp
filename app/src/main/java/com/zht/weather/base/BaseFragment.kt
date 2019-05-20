@@ -31,35 +31,15 @@ abstract class BaseFragment:Fragment(),EasyPermissions.PermissionCallbacks {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepared = true
         initView()
-        lazyLoadDataIfPrepared()
     }
 
     abstract fun initView()
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if(isVisibleToUser){
-            lazyLoadDataIfPrepared()
-        }
-    }
-
-    private fun lazyLoadDataIfPrepared() {
-        if(userVisibleHint && isViewPrepared && !isLoadData){
-            lazyLoad()
-            isLoadData = true
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
         activity?.let { MyApplication.getRefWatcher(it)?.watch(activity) }
     }
 
-    open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
-        lazyLoad()
-    }
-
-    abstract fun lazyLoad()
 
     @LayoutRes
     abstract fun getLayoutId():Int

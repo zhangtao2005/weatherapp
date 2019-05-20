@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class WeatherMain: BaseFragment(), MainContract.View{
     private var mDataSet:MutableSet<String>? = null
-    private var isLoadWeather = false
 
     override fun showLoading() {
 
@@ -105,18 +104,11 @@ class WeatherMain: BaseFragment(), MainContract.View{
 
     override fun onResume() {
         super.onResume()
-        isLoadWeatherThisTime()
+        loadWeatherThisTime()
     }
 
-    override fun lazyLoad() {
-//        isLoadWeatherThisTime()
-    }
-
-    private fun isLoadWeatherThisTime() {
-//        if(!isLoadWeather) {
-            localPresenter.loadWeathers()
-//            isLoadWeather = true
-//        }
+    private fun loadWeatherThisTime() {
+        localPresenter.loadWeathers()
     }
 
     override fun getLayoutId(): Int {
