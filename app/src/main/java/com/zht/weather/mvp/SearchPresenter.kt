@@ -17,11 +17,7 @@ import interfaces.heweather.com.interfacesmodule.view.HeWeather
  */
 class SearchPresenter:SearchContract.Presenter {
     override fun querySelectedCities() {
-        val set = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
-        val citiesList = ArrayList<String>()
-        set.forEach {
-            citiesList.add(it)
-        }
+        val citiesList = MMKVUtils.getAppendStringAsList(ConstantValues.SELECT_CITIES)
         mLocalView.showSelectedCities(citiesList)
     }
 

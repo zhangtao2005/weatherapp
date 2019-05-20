@@ -6,7 +6,7 @@ interface MainContract{
     }
 
     interface View: BaseView {
-        fun onGetAllCityNames(set:MutableSet<String>)
+        fun onGetAllCityNames(list:List<String>?)
         fun onAddClicked()
     }
 }

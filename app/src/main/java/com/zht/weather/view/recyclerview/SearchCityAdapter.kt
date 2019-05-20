@@ -21,7 +21,7 @@ class SearchCityAdapter(context: Context, cities:ArrayList<CityBean>, layoutId:I
         val city:TextView = holder.getView(R.id.tv_city)
         city.text = data.cityName
         holder.setOnItemClickListener(View.OnClickListener {
-            MMKVUtils.putStringIntoSet(key = ConstantValues.SELECT_CITIES,value = data.location!!)
+            MMKVUtils.putStringAppend(key = ConstantValues.SELECT_CITIES,value = data.location!!)
             val intent = Intent(context,MainActivity::class.java)
             intent.putExtra(ConstantValues.SELECT_ONE_CITY,data.location)
             context.startActivity(intent)

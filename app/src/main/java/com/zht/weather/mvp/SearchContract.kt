@@ -14,6 +14,6 @@ interface SearchContract {
     interface View<T>: BaseView {
         fun showSuccessOnGetCity(data:ArrayList<T>)
         fun showErrorOnGetCity(city:String)
-        fun showSelectedCities(data:ArrayList<String>)
+        fun showSelectedCities(data:List<String>?)
     }
 }

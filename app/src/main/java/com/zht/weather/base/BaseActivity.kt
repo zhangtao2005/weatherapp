@@ -25,12 +25,6 @@ abstract class BaseActivity : AppCompatActivity(),EasyPermissions.PermissionCall
         setContentView(layoutId())
         initData()
         initView()
-        start()
-        initListener()
-    }
-
-    private fun initListener() {
-
     }
 
 
@@ -48,11 +42,6 @@ abstract class BaseActivity : AppCompatActivity(),EasyPermissions.PermissionCall
      * 初始化 View
      */
     abstract fun initView()
-
-    /**
-     * 开始请求
-     */
-    abstract fun start()
 
 
     /**

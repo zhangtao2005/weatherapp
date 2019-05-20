@@ -1,6 +1,5 @@
 package com.zht.weather.mvp
 
-import android.util.Log
 import com.zht.weather.utils.ConstantValues
 import com.zht.weather.utils.MMKVUtils
 
@@ -11,17 +10,14 @@ import com.zht.weather.utils.MMKVUtils
  */
 class WeatherMainPresenter:MainContract.Presenter {
     private var mView:MainContract.View
-    private var lastSize:Int = 0
 
     constructor(view:MainContract.View){
         mView = view
     }
 
     override fun loadWeathers() {
-        val set = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
-        Log.i(ConstantValues.TAG_MAIN,"set size = ${set.size}")
-        mView.onGetAllCityNames(set)
-        lastSize = set.size
+        val list = MMKVUtils.getAppendStringAsList(ConstantValues.SELECT_CITIES)
+        mView.onGetAllCityNames(list)
     }
 
     override fun subscribe() {

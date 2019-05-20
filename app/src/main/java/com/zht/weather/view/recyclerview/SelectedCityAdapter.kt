@@ -23,16 +23,13 @@ class SelectedCityAdapter(context: Context, cities:ArrayList<String>, layoutId:I
         }
         val delete:ImageView = holder.getView(R.id.iv_delete)
         delete.setOnClickListener{
-            removeOneCity(cityData,position)
+            removeOneCity(cityData)
         }
     }
 
-    private fun removeOneCity(city:String,position: Int){
+    private fun removeOneCity(city:String){
         datas?.remove(city)
         notifyDataSetChanged()
-        val citiesSet = MMKVUtils.getStringSet(ConstantValues.SELECT_CITIES)
-        if(citiesSet.remove(city)) {
-            MMKVUtils.putStringSet(ConstantValues.SELECT_CITIES, citiesSet)
-        }
+        MMKVUtils.removeStringFromAppend(ConstantValues.SELECT_CITIES,city)
     }
 }

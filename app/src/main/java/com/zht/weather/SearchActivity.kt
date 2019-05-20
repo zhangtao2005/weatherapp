@@ -35,20 +35,26 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
         SearchPresenter(this)
     }
 
-    override fun showSelectedCities(data: ArrayList<String>) {
+    override fun showSelectedCities(data: List<String>?) {
 
-        val selectAdapter = SelectedCityAdapter(this,data,R.layout.select_item)
-        mSelectedCityRecycler.adapter = selectAdapter
+        data?.let {
+            val arrayList = ArrayList<String>()
+            data.forEach {
+                arrayList.add(it)
+            }
+            val selectAdapter = SelectedCityAdapter(this,arrayList,R.layout.select_item)
+            mSelectedCityRecycler.adapter = selectAdapter
 
-        val flexBoxLayoutManager = FlexboxLayoutManager(this)
-        flexBoxLayoutManager.flexWrap = FlexWrap.WRAP      //按正常方向换行
-        flexBoxLayoutManager.flexDirection = FlexDirection.ROW   //主轴为水平方向，起点在左端
-        flexBoxLayoutManager.alignItems = AlignItems.CENTER    //定义项目在副轴轴上如何对齐
-        flexBoxLayoutManager.justifyContent = JustifyContent.FLEX_START  //多个轴对齐方式
-        mSelectedCityRecycler.layoutManager = flexBoxLayoutManager
+            val flexBoxLayoutManager = FlexboxLayoutManager(this)
+            flexBoxLayoutManager.flexWrap = FlexWrap.WRAP      //按正常方向换行
+            flexBoxLayoutManager.flexDirection = FlexDirection.ROW   //主轴为水平方向，起点在左端
+            flexBoxLayoutManager.alignItems = AlignItems.CENTER    //定义项目在副轴轴上如何对齐
+            flexBoxLayoutManager.justifyContent = JustifyContent.FLEX_START  //多个轴对齐方式
+            mSelectedCityRecycler.layoutManager = flexBoxLayoutManager
 
-        mSearchCityRecycler.visibility = View.GONE
-        mSelectedCityRecycler.visibility = View.VISIBLE
+            mSearchCityRecycler.visibility = View.GONE
+            mSelectedCityRecycler.visibility = View.VISIBLE
+        }
     }
 
     override fun showSuccessOnGetCity(data: ArrayList<CityBean>) {
@@ -170,10 +176,6 @@ class SearchActivity : BaseActivity(),SearchContract.View<CityBean> {
         openKeyBord(et_search_view, applicationContext)
     }
 
-
-    override fun start() {
-
-    }
 
     // 返回事件
     override fun onBackPressed() {

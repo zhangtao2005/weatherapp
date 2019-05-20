@@ -2,6 +2,7 @@ package com.zht.weather.utils
 
 import com.tencent.mmkv.MMKV
 
+
 /**
  *   author  :zhangtao
  *   date    :2019/5/13 17:29
@@ -10,32 +11,52 @@ import com.tencent.mmkv.MMKV
 object MMKVUtils {
 
     private const val DEFAULT_MMKV_NAME = "default_mmkv"
+    private const val APPEND_DATA_SEPARATOR = "#"
     private var  mMMKV:MMKV
 
     init {
         mMMKV = MMKV.mmkvWithID(DEFAULT_MMKV_NAME)
     }
 
-    fun putStringIntoSet(key:String,value:String){
-        var dataSet : MutableSet<String>? = getStringSet(key)
-        if(dataSet == null){
-            dataSet = mutableSetOf()
+    fun putStringAppend(key:String, value:String){
+        val listOld = getAppendStringAsList(key)
+        listOld?.let {
+            if (it.contains(value)) {
+                return
+            }
         }
-        dataSet.add(value)
-        mMMKV.putStringSet(key,dataSet)
+        var dataAppended = getAppendString(key)
+        var builder =
+            if(dataAppended == null)
+                StringBuilder()
+            else
+                StringBuilder(dataAppended)
+        builder.append(value+APPEND_DATA_SEPARATOR)
+        mMMKV.putString(key,builder.toString())
     }
 
-    fun getStringSet(key:String): MutableSet<String> {
-        val dataSet = mutableSetOf<String>()
-        val oldSet = mMMKV.getStringSet(key,null)
-        oldSet?.let {
-            oldSet.forEach { dataSet.add(it) }
-        }
-        return dataSet
+    private fun getAppendString(key:String): String? {
+        return mMMKV.getString(key,null)
+    }
+
+    fun getAppendStringAsList(key:String): List<String>? {
+        val appendStr = getAppendString(key)
+        return appendStr?.split(APPEND_DATA_SEPARATOR)?.filter { it.isNotEmpty() }
     }
     
-    fun putStringSet(key:String,set:MutableSet<String>){
-        mMMKV.putStringSet(key,set)
+    fun removeStringFromAppend(key:String,value:String){
+        val appendString = getAppendString(key)
+        val arrData = appendString?.split(APPEND_DATA_SEPARATOR)
+        val mutableListData:MutableList<String>
+        arrData?.let {
+            mutableListData = arrData.toMutableList()
+            val builder = StringBuilder()
+            mutableListData.forEach {
+                if(it != value)
+                    builder.append(it+APPEND_DATA_SEPARATOR)
+            }
+            mMMKV.putString(key,builder.toString())
+        }
     }
 
 }

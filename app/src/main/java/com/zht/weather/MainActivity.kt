@@ -2,6 +2,7 @@ package com.zht.weather
 
 import android.Manifest
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
@@ -34,6 +35,9 @@ class MainActivity : BaseActivity() {
             val oneCity = it.getStringExtra(ConstantValues.SELECT_ONE_CITY)
             oneCity?.let {
                 contentFragment = WeatherMain()
+                val args = Bundle()
+                args.putString(ConstantValues.SELECT_ONE_CITY,oneCity)
+                contentFragment.arguments = args
                 supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
             }
         }
@@ -48,10 +52,6 @@ class MainActivity : BaseActivity() {
         StatusBarUtil.setPaddingSmart(this, content)
         contentFragment = WeatherMain()
         supportFragmentManager.beginTransaction().replace(R.id.content,contentFragment).commitAllowingStateLoss()
-    }
-
-    override fun start() {
-
     }
 
     /**

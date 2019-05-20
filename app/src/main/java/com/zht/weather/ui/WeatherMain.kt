@@ -3,9 +3,9 @@ package com.zht.weather.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.Fragment
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
@@ -18,7 +18,8 @@ import com.zht.weather.utils.ConstantValues
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class WeatherMain: BaseFragment(), MainContract.View{
-    private var mDataSet:MutableSet<String>? = null
+    private var mDataList:List<String>? = null
+    private var selectCity:String? = null
 
     override fun showLoading() {
 
@@ -36,23 +37,25 @@ class WeatherMain: BaseFragment(), MainContract.View{
         const val TAG = "WeatherMain"
     }
 
-    override fun onGetAllCityNames(set: MutableSet<String>) {
-        if(set.size > 0){
-            hint.visibility = View.GONE
-        }else{
-            hint.visibility = View.VISIBLE
+    override fun onGetAllCityNames(list: List<String>?) {
+        list?.let {
+            if(it.isNotEmpty()){
+                 hint.visibility = View.GONE
+            }else{
+                hint.visibility = View.VISIBLE
+            }
         }
-        mDataSet?.let {
-            if( mDataSet == set){
+        mDataList?.let {
+            if( mDataList == list){
                 return
             }
         }
-        mDataSet = set
+        mDataList = list
 
         val fragmentItems = FragmentPagerItems(activity)
         var fragmentPagerItem:FragmentPagerItem
         var bundle:Bundle
-        set.forEach {
+        list?.forEach {
             bundle = Bundle()
             bundle.putString(ConstantValues.SELECT_ONE_CITY,it)
             fragmentPagerItem = FragmentPagerItem.of(it,WeatherOneCity::class.java,bundle)
@@ -72,12 +75,22 @@ class WeatherMain: BaseFragment(), MainContract.View{
             }
         }
 
-
         val fragmentPageAdapter = FragmentPagerItemAdapter(childFragmentManager,
             fragmentItems)
         viewpager.adapter = fragmentPageAdapter
-        Log.i(TAG,"set fragmentPageAdapter")
         viewpagertab.setViewPager(viewpager)
+
+        //switch to the selected city
+        if(selectCity != null ){
+            for(i in 0 until fragmentPageAdapter.count ) {
+                val frag = fragmentPageAdapter.instantiateItem(viewpager,i)
+                frag?.let {
+                    if(frag is Fragment && frag.arguments?.getString(ConstantValues.SELECT_ONE_CITY) == selectCity) {
+                        viewpager.setCurrentItem(i, true)
+                    }
+                }
+            }
+        }
     }
 
     override fun onAddClicked() {
@@ -98,6 +111,7 @@ class WeatherMain: BaseFragment(), MainContract.View{
     }
 
     override fun initView() {
+        selectCity = arguments?.getString(ConstantValues.SELECT_ONE_CITY)
         iv_add.setOnClickListener(onAddClicked)
         hint.visibility = View.VISIBLE
     }
